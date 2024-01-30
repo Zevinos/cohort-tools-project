@@ -25,7 +25,7 @@ const studentSchema = new mongoose.Schema({
   },
   background: { type: String, default: "" },
   image: { type: String, default: "https://i.imgur.com/r8bo8u7.png" },
-  cohort: { type: ObjectId, ref: "" },
+  cohort: { type: ObjectId, ref: "Cohort" },
   projects: [],
 });
 

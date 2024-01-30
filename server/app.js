@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Student = require("./models/Students.model");
+const Cohort = require("./models/Cohorts.model");
 const PORT = 5005;
 
 // STATIC DATA
@@ -42,14 +43,15 @@ app.get("/docs", (req, res) => {
 });
 
 app.get("/api/cohorts", (req, res) => {
-  res.json(cohorts);
+  Cohort.find({}).then((cohorts) => {
+    res.json(cohorts);
+  });
 });
-
+//ajouter les catch err
 app.get("/api/students", (req, res) => {
-  // res.json({
-  //  count: students.length,
-  //   data: students.map((student) => student.firstName),
-  // });
+  Student.find({ firstName: /a/i }).then((students) => {
+    res.json(students);
+  });
 });
 // START SERVER
 app.listen(PORT, () => {
