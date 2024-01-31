@@ -38,21 +38,16 @@ mongoose
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
 // ...
+
 app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-app.get("/api/cohorts", (req, res) => {
-  Cohort.find({}).then((cohorts) => {
-    res.json(cohorts);
-  });
-});
+const indexRoutes = require("./routes/index.routes.js");
+app.use("/api", indexRoutes);
+
 //ajouter les catch err
-app.get("/api/students", (req, res) => {
-  Student.find({ firstName: /a/i }).then((students) => {
-    res.json(students);
-  });
-});
+
 // START SERVER
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
