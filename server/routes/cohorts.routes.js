@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     const newCohort = await Cohort.create(req.body);
     res.status(201).json(newCohort);
   } catch (error) {
-    res.status(500).json({ error, message: "failed to create a Cohort" });
+    next(error);
   }
 });
 
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
     const allCohorts = await Cohort.find();
     res.status(200).json(allCohorts);
   } catch (error) {
-    res.status(500).json({ error, message: "Failed to get all cohorts" });
+    next(error);
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/:cohortId", async (req, res) => {
     const oneCohort = await Cohort.findById(cohortId);
     res.status(200).json(oneCohort);
   } catch (error) {
-    res.status(500).json({ error, message: "failed to get the cohort" });
+    next(error);
   }
 });
 
@@ -53,7 +53,7 @@ router.put("/:cohortId", async (req, res) => {
 
     res.status(202).json(updatedCohort);
   } catch (error) {
-    res.status(500).json({ error, message: "failed to put the cohort" });
+    next(error);
   }
 });
 
@@ -63,7 +63,7 @@ router.delete("/:cohortId", async (req, res) => {
     const cohortId = req.params.cohortId;
     const deleteCohort = await Cohort.findByIdAndDelete(deleteCohort);
   } catch (error) {
-    res.status(500).json({ error, message: "failed to delete the cohort" });
+    next(error);
   }
 });
 

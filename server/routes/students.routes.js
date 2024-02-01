@@ -18,8 +18,8 @@ router.get("/", async (req, res) => {
   try {
     const allStudents = await Student.find().populate("cohort");
     res.status(200).json(allStudents);
-  } catch (error) {
-    res.status(500).json({ error, message: "Failed to get all students." });
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -32,10 +32,7 @@ router.get("/cohort/:cohortId", async (req, res) => {
 
     res.status(200).json(allStudents);
   } catch (error) {
-    res.status(500).json({
-      error,
-      message: "Failed to get  all the students of the cohort.",
-    });
+    next(error);
   }
 });
 
@@ -47,7 +44,7 @@ router.get("/:studentId", async (req, res) => {
     );
     res.status(200).json(oneStudent);
   } catch (error) {
-    res.status(500).json({ error, message: "Failed to get the student." });
+    next(error);
   }
 });
 
@@ -65,7 +62,7 @@ router.put("/:studentId", async (req, res) => {
 
     res.status(202).json(updatedStudent);
   } catch (error) {
-    res.status(500).json({ error, message: "failed to put the Student" });
+    next(error);
   }
 });
 
@@ -77,7 +74,7 @@ router.delete("/:studentId", async (req, res) => {
 
     res.sendStatus(204);
   } catch (error) {
-    res.status(500).json({ error, message: "Failed to delete student." });
+    next(error);
   }
 });
 

@@ -5,6 +5,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Student = require("./models/Students.model");
 const Cohort = require("./models/Cohorts.model");
+const {
+  errorHandler,
+  notFoundHandler,
+} = require("./middleware/error-handling.js");
 const PORT = 5005;
 
 // STATIC DATA
@@ -45,6 +49,9 @@ app.get("/docs", (req, res) => {
 
 const indexRoutes = require("./routes/index.routes.js");
 app.use("/api", indexRoutes);
+
+app.use(errorHandler);
+app.use(notFoundHandler);
 
 //ajouter les catch err
 
