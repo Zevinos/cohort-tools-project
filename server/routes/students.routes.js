@@ -9,14 +9,19 @@ router.post("/", async (req, res) => {
     res.status(201).json(newStudent);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error, message: "Failed to create a student." });
+    next(error);
   }
 });
 
 //Retrieves all of the students in the database collection
 router.get("/", async (req, res) => {
   try {
-    const allStudents = await Student.find().populate("cohort");
+    const filter = {};
+    if (req.query.program) {
+      filter.program = req.query.program;
+    }
+
+    const allStudents = await Student.find(filter).populate("cohort");
     res.status(200).json(allStudents);
   } catch (err) {
     next(err);

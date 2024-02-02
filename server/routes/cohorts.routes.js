@@ -21,6 +21,14 @@ router.post("/", async (req, res) => {
 //Retrieves all of the cohorts in the database collection
 router.get("/", async (req, res) => {
   try {
+    const filter = {};
+    if (req.query.campus) {
+      filter.campus = req.query.campus;
+    }
+    if (req.query.program) {
+      filter.program = req.query.program;
+    }
+
     const allCohorts = await Cohort.find();
     res.status(200).json(allCohorts);
   } catch (error) {
