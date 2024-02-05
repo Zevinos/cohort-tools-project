@@ -2,13 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Student = require("./models/Students.model");
 const Cohort = require("./models/Cohorts.model");
-const {
-  errorHandler,
-  notFoundHandler,
-} = require("./middleware/error-handling.js");
+
 const PORT = 5005;
 
 // STATIC DATA
@@ -49,6 +47,11 @@ app.get("/docs", (req, res) => {
 
 const indexRoutes = require("./routes/index.routes.js");
 app.use("/api", indexRoutes);
+
+const {
+  errorHandler,
+  notFoundHandler,
+} = require("./middleware/error-handling.js");
 
 app.use(errorHandler);
 app.use(notFoundHandler);
